@@ -1,0 +1,14 @@
+﻿@model Chapter7Example1.Models.Course
+<form asp-controller="Instructor" asp-action="AddCourse"method="post">
+    <label asp-for="CourseTitle"></label>
+    <input asp-for="CourseTitle" />
+    <br />
+
+    <label asp-for="SeatCapacity"></label>
+    <input asp-for="SeatCapacity" />
+    <br />
+
+    <input asp-for="InstructorId" type="hidden" />
+    <br />
+    <button type="submit">Add Course</buttont>
+</form>

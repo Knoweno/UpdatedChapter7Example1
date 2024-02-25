@@ -44,7 +44,19 @@ namespace Chapter7Example1.Controllers
                     vm.Email, vm.Password, false, false);
                 if (result.Succeeded)
                 {
+                    //return RedirectToAction("Index", "Home");
+                   var user=await userManager.FindByEmailAsync(vm.Email);
+                    var roles = await userManager.GetRolesAsync(user);
+                    if(roles.Contains("Instructor"))
+                    {
+                        return RedirectToAction("Index", "Instructor");
+                    }
+                    else if (roles.Contains("Student"))
+                    {
+                        return RedirectToAction("Index", "Student");
+                    }
                     return RedirectToAction("Index", "Home");
+
                 }
                 ModelState.AddModelError("","Login Failure.");
             }

@@ -1,0 +1,15 @@
+﻿@model Chapter7Example1.Models.Student
+
+
+<h2>Add Your Profile</h2>
+<form asp-action="AddProfile" method="post">
+
+    <input asp-for="@Model.UserId" type="hidden" />
+    <label asp-for="StudentName"></label>
+    <input asp-for="StudentName" />
+    <br />
+
+    
+    <button type="submit">Add Profile</button>
+</form>
+<p><a asp-action="Index">Back to student home</a></p>
