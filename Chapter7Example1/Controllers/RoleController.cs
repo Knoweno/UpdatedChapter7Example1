@@ -72,6 +72,7 @@ namespace Chapter7Example1.Controllers
             }
             var roleDisplay=db.Roles.Select(x=> new
             {
+
                 Id=x.Id, Value=x.Name
             }).ToList();    
             vm.User=user;
