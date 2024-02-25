@@ -30,6 +30,11 @@ namespace Chapter7Example1.Controllers
         {
             return View();
         }
+
+        public IActionResult Register()
+        {
+            return View();
+        }
         [HttpPost]
         public async Task<IActionResult> Login(AccountLoginViewModel vm)
         {
