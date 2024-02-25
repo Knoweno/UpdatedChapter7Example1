@@ -1,5 +1,6 @@
 ﻿using Chapter7Example1.Models;
 using Chapter7Example1.ViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
@@ -7,6 +8,7 @@ using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace Chapter7Example1.Controllers
 {
+    [Authorize(Roles ="Admin")]
     public class RoleController : Controller
     {
 
