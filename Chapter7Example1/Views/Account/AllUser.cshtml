@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Microsoft.AspNetCore.Identity.IdentityUser>
+<p><a asp-action="Register">Add a User</a> </p>
+
+@{
+    if (Model.Count() < 1)
+    {
+        <p>No user in database yet.</p>
+    }
+    else
+    {
+        <h3>All Users</h3>
+        <table border="1">
+            <tr>
+                <th>User Name</th>
+                <th>Add Role</th>
+            </tr>
+            @foreach (var user in Model)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td><a asp-action="AddUserRole" asp-controller="Role" asp-route-id="@user.Id">
+                    Add a Role</a></td>
+                </tr>
+            }
+
+
+
+        </table>
+    }
+}

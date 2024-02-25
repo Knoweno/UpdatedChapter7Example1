@@ -1,0 +1,18 @@
+﻿@model Chapter7Example1.ViewModels.RoleAddUserRoleViewModel
+<p>Pick a role for @Model.User.UserName</p>
+<form asp-action="AddUserRole" method="post" asp-controller="Role">
+
+    <div asp-validation-summary="All"></div>
+    <label asp-for="Role"></label>
+    <input asp-for="@Model.User.Id" type="hidden"/>
+    <select asp-for="Role"
+    asp-items="@Model.RoleList">
+    </select>
+    <span asp-validation-for="Role"></span>
+    <br />
+
+
+    <button type="submit">Add Role</button>
+    <p><a asp-action="AllUser" asp-controller="Account"> Back to user List</a></p>
+
+</form>
