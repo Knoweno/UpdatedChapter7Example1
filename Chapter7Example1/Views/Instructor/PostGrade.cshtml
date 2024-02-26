@@ -1,0 +1,30 @@
+﻿@model List<Chapter7Example1.Models.Enrollment>
+<h2>Enter Student Grades</h2>
+<h3>Course: @Model[0].Course.CourseTitle</h3>
+
+<form asp-controller="Instructor" asp-action="PostGrade">
+    <table border="1">
+        <tr>
+            <th></th>
+            <th>Student ID</th>
+            <th>Grade</th>
+</tr>
+       @foreach (var enrollment in Model.ToList())
+            {
+                <tr>
+                    <td>
+                        <input asp-for="@enrollment.EnrollmentId" type="hidden" 
+                        value="@enrollment.EnrollmentId"
+                        />
+                    </td>
+                    <td>@enrollment.Student</td>
+                    <td>
+                        <input asp-for="@enrollment.LetterGrade" />
+                    </td>
+                </tr>
+            }
+    </table>
+    <input type="submit" value="Submit" />
+    </form>
+    <p> <a asp-action="Index"> Back to instructor home </a>
+   </p>

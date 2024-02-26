@@ -1,6 +1,7 @@
 ﻿using Chapter7Example1.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Chapter7Example1.Controllers
@@ -51,6 +52,32 @@ namespace Chapter7Example1.Controllers
             {
                 db.Add(student);
             }
+
+            await db.SaveChangesAsync();
+            return View("Index");
+        }
+
+        public async Task<IActionResult> AllCourse()
+        {
+            var course = await db.Courses.Include(c => c.Instructor).ToListAsync();
+            return View(course);
+        }
+
+        public async Task<IActionResult> EnrollCourse(int id)
+        {
+            var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var studentId = db.Students.FirstOrDefault(s => s.UserId == currentUserId).StudentId;
+
+            Enrollment enrollment = new Enrollment
+            {
+                CourseId = id,
+                StudentId = studentId
+            };
+
+            db.Add(enrollment);
+
+            var course = await db.Courses.FindAsync(id);
+            course.SeatCapacity--;
 
             await db.SaveChangesAsync();
             return View("Index");

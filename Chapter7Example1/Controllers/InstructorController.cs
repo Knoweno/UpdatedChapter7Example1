@@ -75,5 +75,40 @@ namespace Chapter7Example1.Controllers
         {
             return View();
         }
+        public async Task<IActionResult> CourseByInstructor()
+        {
+            var currentUserId = this.User.FindFirst(ClaimTypes.NameIdentifier).Value;
+            var instructorId = db.Instructors.SingleOrDefault(i => i.UserId == currentUserId).InstructorId;
+            var course = await db.Courses.Where(i => i.InstructorId == instructorId).ToListAsync();
+            return View(course);
+        }
+        public async Task<IActionResult> PostGrade(int? id)
+        {
+            if(id==null)
+            {
+                return NotFound();
+            }
+            var allStudents = await db.Enrollments.Include(c => c.Course).Where(c => c.CourseId == id).ToListAsync();
+
+            if(allStudents==null || allStudents.Count==0)
+            {
+                return NotFound();
+            }
+            return View(allStudents);
+        }
+        [HttpPost]
+        public ActionResult PostGrade(List<Enrollment> enrollments)
+        {
+            foreach (var enrollment in enrollments)
+            {
+                var er = db.Enrollments.Find(enrollment.EnrollmentId);
+                er.LetterGrade = enrollment.LetterGrade;
+            }
+
+            db.SaveChanges();
+            return RedirectToAction("CourseByInstructor");
+        }
+
+
     }
 }
